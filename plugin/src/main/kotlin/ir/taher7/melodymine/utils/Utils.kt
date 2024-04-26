@@ -30,23 +30,23 @@ object Utils {
 
     private val qrCoreLore = listOf(
         "${ChatColor.GRAY}${ChatColor.STRIKETHROUGH}                                 ",
-        "${ChatColor.WHITE}Step 1 ${ChatColor.DARK_GRAY}- ${ChatColor.DARK_AQUA}Scan the QRCode",
-        "${ChatColor.WHITE}Step 2 ${ChatColor.DARK_GRAY}- ${ChatColor.DARK_AQUA}Click on the StartMelody Button.",
+        "${ChatColor.WHITE}Paso 1 ${ChatColor.DARK_GRAY}- ${ChatColor.DARK_AQUA}Escanea el Código QR con tu Celular.",
+        "${ChatColor.WHITE}Paso 1 ${ChatColor.DARK_GRAY}- ${ChatColor.DARK_AQUA}Haz Click en el botón StartMelody.",
         "",
-        "${ChatColor.DARK_RED}!!! ${ChatColor.RED}${ChatColor.BOLD}Don't Give this Item to another Player ${ChatColor.DARK_RED}!!!",
+        "${ChatColor.DARK_RED}!!! ${ChatColor.RED}${ChatColor.BOLD}No le pases este código a nadie ${ChatColor.DARK_RED}!!!",
         "",
-        "${ChatColor.YELLOW}Click to remove QRCode",
+        "${ChatColor.YELLOW}Haz click para eliminar el Código QR.",
         "${ChatColor.GRAY}${ChatColor.STRIKETHROUGH}                                 ",
     )
 
-    private val qrCodeDisplayName = "${ChatColor.AQUA}${ChatColor.ITALIC}MelodyMine QRCode"
+    private val qrCodeDisplayName = "${ChatColor.AQUA}${ChatColor.ITALIC}Código QR del Chat de Voz"
 
     fun sendHelpMessage(player: Player) {
         player.sendMessage(Storage.contentHeader.toComponent())
         player.sendMessage("")
         Storage.subCommands.forEach { subCommand: SubCommand ->
             if (player.hasPermission(subCommand.permission)) {
-                player.sendMessage("<click:run_command:'${subCommand.syntax}'><hover:show_text:'<text_hover>Click to run <i>${subCommand.syntax}</i>'><text_hover>${subCommand.syntax} <#FFF4E4><bold>|</bold> <text>${subCommand.description}</hover></click>".toComponent())
+                player.sendMessage(" <gray>•</gray> <click:run_command:'${subCommand.syntax}'><hover:show_text:'<text_hover>Haz click para ejecutar <i>${subCommand.syntax}</i>'><text_hover>${subCommand.syntax} <#FFF4E4><bold> - </bold> <text>${subCommand.description}</hover></click>".toComponent())
             }
         }
         player.sendMessage("")
@@ -195,7 +195,7 @@ object Utils {
                     targetPlayer.pendingTask = null
 
                     if (isQuit) MelodyManager.endPendingCall(melodyPlayer, targetPlayer)
-                    targetPlayer.player?.sendMessage("<prefix>Pending Call Ended.".toComponent())
+                    targetPlayer.player?.sendMessage("<prefix>Llamada pendiente finalizada.".toComponent())
                 }
 
                 if (melodyPlayer.isInCall) {
@@ -205,7 +205,7 @@ object Utils {
                     targetPlayer.isInCall = false
                     targetPlayer.callTarget = null
                     if (isQuit) MelodyManager.endCall(melodyPlayer, targetPlayer)
-                    targetPlayer.player?.sendMessage("<prefix>Call Ended.".toComponent())
+                    targetPlayer.player?.sendMessage("<prefix>Llamada finalizada.".toComponent())
                 }
 
             }
