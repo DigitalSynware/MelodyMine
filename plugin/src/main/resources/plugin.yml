@@ -8,7 +8,7 @@ depend:
 softdepend:
   - PlaceholderAPI
 commands:
-  melodymine:
+  voicechat:
     description: main plugin command.
     usage: /<command>
 permissions:

@@ -32,8 +32,8 @@ class MelodyMine : JavaPlugin() {
         server.pluginManager.registerEvents(NameTagListener(), this)
 
 
-        getCommand("melodymine")?.setExecutor(CommandManager())
-        getCommand("melodymine")?.tabCompleter = TabCompletionManager()
+        getCommand("voicechat")?.setExecutor(CommandManager())
+        getCommand("voicechat")?.tabCompleter = TabCompletionManager()
 
 
         Metrics(this, 20020)
