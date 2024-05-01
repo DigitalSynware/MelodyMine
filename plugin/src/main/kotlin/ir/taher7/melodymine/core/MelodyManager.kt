@@ -83,7 +83,10 @@ object MelodyManager {
 
     fun sendStartLink(player: Player) {
         Database.getVerifyCode(player) { result ->
-            player.sendMessage("<click:open_url:'${Storage.website}/login?verifyCode=${result}'><hover:show_text:'<text_hover>Click to open'><prefix>${Storage.websiteMessage}</hover></click>".toComponent())
+            player.sendMessage("§c ".toComponent())
+            player.sendMessage("<click:open_url:'${Storage.website}/login?verifyCode=${result}'><hover:show_text:'<text_hover>Haz click para abrir'><prefix>${Storage.websiteMessage}</hover></click>".toComponent())
+            player.sendMessage("§c§lIMPORTANTE: §cNo le pases el enlace de conexión a nadie".toComponent())
+            player.sendMessage("§c ".toComponent())
         }
     }
 
@@ -111,7 +114,10 @@ object MelodyManager {
                             player.inventory.heldItemSlot = slot
                         }
 
-                        player.sendMessage("<prefix>Scan the QRCode.".toComponent())
+                        player.sendMessage("§c ".toComponent())
+                        player.sendMessage("<prefix>Escanea el Código QR que has recibido para conectarte".toComponent())
+                        player.sendMessage("§c§lIMPORTANTE: §cNo le pases este código a nadie".toComponent())
+                        player.sendMessage("§c ".toComponent())
                         Bukkit.getServer().pluginManager.callEvent(PostSendQRCodeEvent(player))
                     }
                 }
