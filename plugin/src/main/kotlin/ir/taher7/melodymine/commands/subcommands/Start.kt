@@ -15,8 +15,8 @@ class Start : SubCommand() {
 
     override var name = "start"
     override var description = Storage.startDescription
-    override var syntax = "/melodymine start"
-    override var permission = "melodymine.start"
+    override var syntax = "/voicechat start"
+    override var permission = "voicechat.start"
 
     override fun handler(player: Player, args: Array<out String>) {
 

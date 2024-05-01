@@ -15,8 +15,8 @@ class AdminMode : SubCommand() {
 
     override var name = "adminmode"
     override var description = Storage.adminmodeDescription
-    override var syntax = "/melodymine adminmode"
-    override var permission = "melodymine.adminmode"
+    override var syntax = "/voicechat adminmode"
+    override var permission = "voicechat.adminmode"
 
     override fun handler(player: Player, args: Array<out String>) {
         val melodyPlayer = Storage.onlinePlayers[player.uniqueId.toString()] ?: return

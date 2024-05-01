@@ -11,8 +11,8 @@ import org.bukkit.entity.Player
 class Reload : SubCommand() {
     override var name = "reload"
     override var description = Storage.reloadDescription
-    override var syntax = "/melodymine reload"
-    override var permission = "melodymine.reload"
+    override var syntax = "/voicechat reload"
+    override var permission = "voicechat.reload"
 
     override fun handler(player: Player, args: Array<out String>) {
         Storage.reload()

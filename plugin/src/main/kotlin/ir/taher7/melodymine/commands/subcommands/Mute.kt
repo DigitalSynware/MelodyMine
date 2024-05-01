@@ -11,8 +11,8 @@ import org.bukkit.entity.Player
 class Mute : SubCommand() {
     override var name = "mute"
     override var description = Storage.muteDescription
-    override var syntax = "/melodymine mute"
-    override var permission = "melodymine.mute"
+    override var syntax = "/voicechat mute"
+    override var permission = "voicechat.mute"
     override fun handler(player: Player, args: Array<out String>) {
         val coolDown = Storage.muteCoolDown
         if (coolDown.containsKey(player.uniqueId) && (System.currentTimeMillis() - coolDown[player.uniqueId]!!) <= 5000) {

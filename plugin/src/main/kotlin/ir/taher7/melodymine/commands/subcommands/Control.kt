@@ -12,8 +12,8 @@ class Control : SubCommand() {
 
     override var name = "control"
     override var description = Storage.controlDescription
-    override var syntax = "/melodymine control"
-    override var permission = "melodymine.control"
+    override var syntax = "/voicechat control"
+    override var permission = "voicechat.control"
     override fun handler(player: Player, args: Array<out String>) {
 
         if (args.size != 2) {

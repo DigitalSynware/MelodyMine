@@ -13,8 +13,8 @@ class Status : SubCommand() {
 
     override var name = "status"
     override var description = Storage.statusDescription
-    override var syntax = "/melodymine status"
-    override var permission = "melodymine.status"
+    override var syntax = "/voicechat status"
+    override var permission = "voicechat.status"
 
     override fun handler(player: Player, args: Array<out String>) {
         if (coolDown.containsKey(player.uniqueId) && (System.currentTimeMillis() - coolDown[player.uniqueId]!!) <= 5000) {

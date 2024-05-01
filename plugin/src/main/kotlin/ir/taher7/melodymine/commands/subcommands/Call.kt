@@ -14,8 +14,8 @@ class Call : SubCommand() {
 
     override var name = "call"
     override var description = Storage.callDescription
-    override var syntax = "/melodymine call"
-    override var permission = "melodymine.call"
+    override var syntax = "/voicechat call"
+    override var permission = "voicechat.call"
     override fun handler(player: Player, args: Array<out String>) {
         if (coolDown.containsKey(player.uniqueId) && (System.currentTimeMillis() - coolDown[player.uniqueId]!!) <= 5000) {
             player.sendMessage("<prefix>You can use this command after <count_color>${((5000 - (System.currentTimeMillis() - coolDown[player.uniqueId]!!)) / 1000)}<text> second.".toComponent())

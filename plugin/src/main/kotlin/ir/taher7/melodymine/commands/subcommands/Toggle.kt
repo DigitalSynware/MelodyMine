@@ -14,8 +14,8 @@ class Toggle : SubCommand() {
 
     override var name = "toggle"
     override var description = Storage.toggleDescription
-    override var syntax = "/melodymine toggle"
-    override var permission = "melodymine.toggle"
+    override var syntax = "/voicechat toggle"
+    override var permission = "voicechat.toggle"
 
     override fun handler(player: Player, args: Array<out String>) {
 

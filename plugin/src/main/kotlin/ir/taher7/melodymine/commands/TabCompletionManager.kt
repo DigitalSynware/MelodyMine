@@ -23,7 +23,7 @@ class TabCompletionManager : TabCompleter {
 
             2 -> {
                 if (args[0].equals("start", true)) {
-                    return if (ReflectionUtils.supports(13) && sender.hasPermission("melodymine.qrcode")) {
+                    return if (ReflectionUtils.supports(13) && sender.hasPermission("voicechat.qrcode")) {
                         listOf("link", "qrcode").filter { item -> item.contains(args[1]) }
                     } else {
                         listOf("link").filter { item -> item.contains(args[1], true) }
@@ -31,7 +31,7 @@ class TabCompletionManager : TabCompleter {
                 }
 
                 if (args[0].equals("control", true)) {
-                    return if (sender.hasPermission("melodymine.control")) {
+                    return if (sender.hasPermission("voicechat.control")) {
                         listOf("mute", "deafen").filter { item -> item.contains(args[1], true) }
                     } else {
                         null
@@ -39,7 +39,7 @@ class TabCompletionManager : TabCompleter {
                 }
 
                 if (args[0].equals("call", true)) {
-                    return if (sender.hasPermission("melodymine.call")) {
+                    return if (sender.hasPermission("voicechat.call")) {
                         listOf("start", "end", "accept", "deny", "toggle").filter { item ->
                             item.contains(
                                 args[1],

@@ -12,8 +12,8 @@ class Reset : SubCommand() {
 
     override var name = "reset"
     override var description = "Reset Player Storage Data."
-    override var syntax = "/melodymine reset"
-    override var permission = "melodymine.reset"
+    override var syntax = "/voicechat reset"
+    override var permission = "voicechat.reset"
 
     override fun handler(player: Player, args: Array<out String>) {
         if (args[1].isEmpty()) {
