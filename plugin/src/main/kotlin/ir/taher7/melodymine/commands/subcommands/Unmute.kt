@@ -13,32 +13,26 @@ class Unmute : SubCommand() {
     override var syntax = "/voicechat unmute"
     override var permission = "voicechat.unmute"
     override fun handler(player: Player, args: Array<out String>) {
-        val coolDown = Storage.muteCoolDown
-        if (coolDown.containsKey(player.uniqueId) && (System.currentTimeMillis() - coolDown[player.uniqueId]!!) <= 5000) {
-            player.sendMessage("<prefix>You can use this command after <count_color>${((5000 - (System.currentTimeMillis() - coolDown[player.uniqueId]!!)) / 1000)}<text> second.".toComponent())
-            return
-        }
 
         if (args.size != 2) {
-            player.sendMessage("<prefix>use: <i>${syntax} <player></i>.".toComponent())
+            player.sendMessage("<prefix>Modo de uso: <i>${syntax} <jugador></i>.".toComponent())
             return
         }
         val filter = Storage.onlinePlayers.values.filter { melodyPlayer ->
             melodyPlayer.name.equals(args[1], true)
         }
         if (filter.isEmpty()) {
-            player.sendMessage("<prefix>Player does not exist.".toComponent())
+            player.sendMessage("<prefix>El jugador que intentas silenciar no está conectado.".toComponent())
             return
         }
         val targetPlayer = filter[0]
         if (!targetPlayer.isMute) {
-            player.sendMessage("<prefix>${targetPlayer.name} <text>is not mute.".toComponent())
+            player.sendMessage("<prefix>${targetPlayer.name} <text>no está silenciado.".toComponent())
             return
         }
 
         MelodyManager.unMute(targetPlayer.uuid)
-        targetPlayer.player?.sendMessage("<prefix>You have unmute from voice chat.".toComponent())
-        player.sendMessage("<prefix><count_color>${targetPlayer.name} <text>has unmute from voice chat.".toComponent())
-        coolDown[player.uniqueId] = System.currentTimeMillis()
+        targetPlayer.player?.sendMessage("<prefix>Has sido desilenciado en el chat de voz.".toComponent())
+        player.sendMessage("<prefix><count_color>${targetPlayer.name} <text>ha sido desilenciado en el chat de voz.".toComponent())
     }
 }

@@ -42,7 +42,7 @@ class ShortcutListener : Listener {
 
                 if (!Storage.muteToggleShortcut) return
                 val player = event.player
-                if (!player.hasPermission("melodymine.control")) return
+                if (!player.hasPermission("voicechat.control")) return
                 val melodyPlayer = Storage.onlinePlayers[event.player.uniqueId.toString()] ?: return
                 if (!melodyPlayer.webIsOnline || !melodyPlayer.isActiveVoice) return
                 if (!Storage.playerMuteShortcut.contains(event.player.uniqueId)) return

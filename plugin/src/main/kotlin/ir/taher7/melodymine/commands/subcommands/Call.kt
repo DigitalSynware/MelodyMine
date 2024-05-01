@@ -31,8 +31,8 @@ class Call : SubCommand() {
 
             "start" -> {
 
-                if (!player.hasPermission("melodymine.call.start")) {
-                    player.sendMessage("<prefix>You dont have permission to use this command.".toComponent())
+                if (!player.hasPermission("voicechat.call.start")) {
+                    player.sendMessage("<prefix>No tienes permiso para usar este comando.".toComponent())
                     return
                 }
 
@@ -43,49 +43,51 @@ class Call : SubCommand() {
 
                 val bukkitPlayer = Bukkit.getPlayer(args[2])
                 if (bukkitPlayer == null) {
-                    player.sendMessage("<prefix>Player is not online.".toComponent())
+                    player.sendMessage("<prefix>El jugador no está en línea.".toComponent())
                     return
                 }
 
                 if (bukkitPlayer.uniqueId == player.uniqueId) {
-                    player.sendMessage("<prefix>You Can't Call Yourself.".toComponent())
+                    player.sendMessage("<prefix>No puedes llamarte a ti mismo.".toComponent())
                     return
                 }
 
                 val melodyPlayer = Storage.onlinePlayers[player.uniqueId.toString()] ?: return
                 if (!melodyPlayer.isActiveVoice) {
-                    player.sendMessage("<prefix>You must Active your Voice Chat, do <i>/melodymine start link</i> to Start Voice Chat.".toComponent())
+                    player.sendMessage("<prefix>Debes activar tu chat de voz, usa <i>/voicechat start link</i> para iniciar el chat de voz.".toComponent())
                     return
                 }
 
                 if (melodyPlayer.isInCall) {
-                    player.sendMessage("<prefix>You're Already in Call with<count_color> ${melodyPlayer.callTarget?.name}<text>, if You want to Start new Call do <i>/melodymine call end</i>.".toComponent())
+                    player.sendMessage("<prefix>Ya estás en una llamada con <count_color>${melodyPlayer.callTarget?.name}<text>, si deseas iniciar una nueva llamada, haz <i>/voicechat call end</i>.".toComponent())
                     return
                 }
 
                 if (melodyPlayer.isCallPending) {
-                    player.sendMessage("<prefix>You're is Already in Pending Call with<count_color> ${melodyPlayer.callPendingTarget?.name}<text>, Please wait to end the Pending Call.".toComponent())
+                    player.sendMessage("<prefix>Ya tienes una solicitud de llamada pendiente con <count_color>${melodyPlayer.callPendingTarget?.name}<text>, por favor espera a que termine la llamada pendiente.".toComponent())
                     return
                 }
 
                 if (melodyPlayer.callToggle) {
-                    player.sendMessage("<prefix>Your Call Request is Disable do <i>/melodymine call toggle</i> to Enable Your Call Request.".toComponent())
+                    player.sendMessage("<prefix>Las solicitudes de llamada están deshabilitadas, usa <i>/voicechat call toggle</i> para habilitarla.".toComponent())
                     return
                 }
 
                 if (melodyPlayer.adminMode) {
                     player.sendMessage("<prefix>You Must First Disable Your AdminMode.".toComponent())
+                    player.sendMessage("<prefix>Debes desactivar tu modo de administrador primero.".toComponent())
                     return
                 }
 
                 if (Storage.disableWorld.contains(player.world.name)) {
                     player.sendMessage("<prefix>Call is Disable in this World.".toComponent())
+                    player.sendMessage("<prefix>Las llamadas están deshabilitadas en este mundo.".toComponent())
                     return
                 }
 
                 val targetPlayer = Storage.onlinePlayers[bukkitPlayer.uniqueId.toString()] ?: return
                 if (!targetPlayer.isActiveVoice || targetPlayer.isInCall || targetPlayer.isCallPending || targetPlayer.callToggle || Storage.disableWorld.contains(targetPlayer.player?.world?.name)) {
-                    player.sendMessage("<prefix><count_color>${targetPlayer.name} <text>is not Available Please try Again later.".toComponent())
+                    player.sendMessage("<prefix><count_color>${targetPlayer.name} <text>no está disponible, por favor inténtalo de nuevo más tarde.".toComponent())
                     return
                 }
 
@@ -95,30 +97,30 @@ class Call : SubCommand() {
             }
 
             "end" -> {
-                if (!player.hasPermission("melodymine.call.end")) {
-                    player.sendMessage("<prefix>You dont have permission to use this command.".toComponent())
+                if (!player.hasPermission("voicechat.call.end")) {
+                    player.sendMessage("<prefix>No tienes permiso para usar este comando.".toComponent())
                     return
                 }
 
                 val melodyPlayer = Storage.onlinePlayers[player.uniqueId.toString()] ?: return
                 if (!melodyPlayer.isActiveVoice) {
-                    player.sendMessage("<prefix>You must Active your Voice Chat, do <i>/melodymine start link</i> to Start Voice Chat.".toComponent())
+                    player.sendMessage("<prefix>Debes activar tu chat de voz, usa <i>/voicechat start link</i> para iniciar el chat de voz.".toComponent())
                     return
                 }
 
                 if (!melodyPlayer.isInCall) {
-                    player.sendMessage("<prefix>You're Not to Any Call.".toComponent())
+                    player.sendMessage("<prefix>No estás en ninguna llamada.".toComponent())
                     return
                 }
 
                 if (melodyPlayer.adminMode) {
-                    player.sendMessage("<prefix>You Must First Disable Your AdminMode.".toComponent())
+                    player.sendMessage("<prefix>Debes desactivar tu modo de administrador primero.".toComponent())
                     return
                 }
 
                 val targetPlayer = Storage.onlinePlayers[melodyPlayer.callTarget?.uuid] ?: return
                 if (!targetPlayer.isActiveVoice || !targetPlayer.isInCall || targetPlayer.isCallPending) {
-                    player.sendMessage("<prefix><count_color>${targetPlayer.name} <text>is not Available Please try Again later.".toComponent())
+                    player.sendMessage("<prefix><count_color>${targetPlayer.name} <text>no está disponible, por favor inténtalo de nuevo más tarde.".toComponent())
                     return
                 }
 
@@ -129,45 +131,45 @@ class Call : SubCommand() {
             }
 
             "accept" -> {
-                if (!player.hasPermission("melodymine.call.accept")) {
-                    player.sendMessage("<prefix>You dont have permission to use this command.".toComponent())
+                if (!player.hasPermission("voicechat.call.accept")) {
+                    player.sendMessage("<prefix>No tienes permiso para usar este comando.".toComponent())
                     return
                 }
 
                 val melodyPlayer = Storage.onlinePlayers[player.uniqueId.toString()] ?: return
                 if (!melodyPlayer.isActiveVoice) {
-                    player.sendMessage("<prefix>You must Active your Voice Chat, do <i>/melodymine start link</i> to Start Voice Chat.".toComponent())
+                    player.sendMessage("<prefix>Debes activar tu chat de voz, usa <i>/voicechat start link</i> para iniciar el chat de voz.".toComponent())
                     return
                 }
 
                 if (melodyPlayer.isInCall) {
-                    player.sendMessage("<prefix>You're Already in Call with<count_color> ${melodyPlayer.callTarget?.name}<text>, if You want to Accept Call do <i>/melodymine call end</i>.".toComponent())
+                    player.sendMessage("<prefix>Ya estás en una llamada con <count_color>${melodyPlayer.callTarget?.name}<text>, si deseas aceptar la llamada, haz <i>/voicechat call end</i>.".toComponent())
                     return
                 }
 
                 if (!melodyPlayer.isCallPending) {
-                    player.sendMessage("<prefix>You don't have any Call Request.".toComponent())
+                    player.sendMessage("<prefix>No tienes ninguna solicitud de llamada.".toComponent())
                     return
                 }
 
                 if (melodyPlayer.callToggle) {
-                    player.sendMessage("<prefix>Your Call Request is Disable do <i>/melodymine call toggle</i> to Enable Your Call Request.".toComponent())
+                    player.sendMessage("<prefix>Tu solicitud de llamada está deshabilitada, usa <i>/voicechat call toggle</i> para habilitarla.".toComponent())
                     return
                 }
 
                 if (melodyPlayer.adminMode) {
-                    player.sendMessage("<prefix>You Must First Disable Your AdminMode.".toComponent())
+                    player.sendMessage("<prefix>Debes desactivar tu modo de administrador primero.".toComponent())
                     return
                 }
 
                 if (Storage.disableWorld.contains(player.world.name)) {
-                    player.sendMessage("<prefix>Call is Disable in this World.".toComponent())
+                    player.sendMessage("<prefix>Las llamadas están deshabilitadas en este mundo.".toComponent())
                     return
                 }
 
                 val targetPlayer = Storage.onlinePlayers[melodyPlayer.callPendingTarget?.uuid] ?: return
                 if (!targetPlayer.isActiveVoice || targetPlayer.isInCall || !targetPlayer.isCallPending || targetPlayer.callToggle || targetPlayer.adminMode || Storage.disableWorld.contains(targetPlayer.player?.world?.name)) {
-                    player.sendMessage("<prefix><count_color>${targetPlayer.name} <text>is not Available Please try Again later.".toComponent())
+                    player.sendMessage("<prefix><count_color>${targetPlayer.name} <text>no está disponible, por favor inténtalo de nuevo más tarde.".toComponent())
                     return
                 }
 
@@ -178,35 +180,35 @@ class Call : SubCommand() {
             }
 
             "deny" -> {
-                if (!player.hasPermission("melodymine.call.deny")) {
-                    player.sendMessage("<prefix>You dont have permission to use this command.".toComponent())
+                if (!player.hasPermission("voicechat.call.deny")) {
+                    player.sendMessage("<prefix>No tienes permiso para usar este comando.".toComponent())
                     return
                 }
 
                 val melodyPlayer = Storage.onlinePlayers[player.uniqueId.toString()] ?: return
                 if (!melodyPlayer.isActiveVoice) {
-                    player.sendMessage("<prefix>You must Active your Voice Chat, do <i>/melodymine start link</i> to Start Voice Chat.".toComponent())
+                    player.sendMessage("<prefix>Para activar tu chat de voz, usa <i>/voicechat start link</i>.".toComponent())
                     return
                 }
 
                 if (melodyPlayer.isInCall) {
-                    player.sendMessage("<prefix>You're Already in Call with<count_color> ${melodyPlayer.callTarget?.name}<text>, if You want to Accept Call do <i>/melodymine call end</i>.".toComponent())
+                    player.sendMessage("<prefix>Ya estás en una llamada con <count_color>${melodyPlayer.callTarget?.name}<text>, si deseas aceptar la llamada, haz <i>/voicechat call end</i>.".toComponent())
                     return
                 }
 
                 if (!melodyPlayer.isCallPending) {
-                    player.sendMessage("<prefix>You don't have any Call Request.".toComponent())
+                    player.sendMessage("<prefix>No tienes ninguna solicitud de llamada.".toComponent())
                     return
                 }
 
                 if (melodyPlayer.callToggle) {
-                    player.sendMessage("<prefix>Your Call Request is Disable do <i>/melodymine call toggle</i> to Enable Your Call Request.".toComponent())
+                    player.sendMessage("<prefix>Tu solicitud de llamada está deshabilitada, usa <i>/voicechat call toggle</i> para habilitarla.".toComponent())
                     return
                 }
 
                 val targetPlayer = Storage.onlinePlayers[melodyPlayer.callPendingTarget?.uuid] ?: return
                 if (!targetPlayer.isActiveVoice || targetPlayer.isInCall || !targetPlayer.isCallPending || targetPlayer.callToggle) {
-                    player.sendMessage("<prefix><count_color>${targetPlayer.name} <text>is not Available Please try Again later.".toComponent())
+                    player.sendMessage("<prefix><count_color>${targetPlayer.name} <text>no está disponible, por favor inténtalo de nuevo más tarde.".toComponent())
                     return
                 }
 
@@ -217,8 +219,8 @@ class Call : SubCommand() {
             }
 
             "toggle" -> {
-                if (!player.hasPermission("melodymine.call.toggle")) {
-                    player.sendMessage("<prefix>You dont have permission to use this command.".toComponent())
+                if (!player.hasPermission("voicechat.call.toggle")) {
+                    player.sendMessage("<prefix>No tienes permiso para usar este comando.".toComponent())
                     return
                 }
 
@@ -237,11 +239,11 @@ class Call : SubCommand() {
     private fun sendCallHelpMessage(player: Player) {
         player.sendMessage(Storage.contentHeader.toComponent())
         player.sendMessage("")
-        player.sendMessage("<click:run_command:'${syntax} start'><hover:show_text:'<text_hover>Click to run <i>${syntax} start</i>'><text_hover>${syntax} start <player> <#FFF4E4><bold>|</bold> <text>Start Call to Someone.</hover></click>".toComponent())
-        player.sendMessage("<click:run_command:'${syntax} end'><hover:show_text:'<text_hover>Click to run <i>${syntax} end</i>'><text_hover>${syntax} end <#FFF4E4><bold>|</bold> <text>End Call You're in.</hover></click>".toComponent())
-        player.sendMessage("<click:run_command:'${syntax} accept'><hover:show_text:'<text_hover>Click to run <i>${syntax} accept</i>'><text_hover>${syntax} accept <#FFF4E4><bold>|</bold> <text>Accept Call Request.</hover></click>".toComponent())
-        player.sendMessage("<click:run_command:'${syntax} deny'><hover:show_text:'<text_hover>Click to run <i>${syntax} deny</i>'><text_hover>${syntax} deny <#FFF4E4><bold>|</bold> <text>Deny Call Request.</hover></click>".toComponent())
-        player.sendMessage("<click:run_command:'${syntax} toggle'><hover:show_text:'<text_hover>Click to run <i>${syntax} toggle</i>'><text_hover>${syntax} toggle <#FFF4E4><bold>|</bold> <text>Toggle Call Requests.</hover></click>".toComponent())
+        player.sendMessage("<click:run_command:'${syntax} start'><hover:show_text:'<text_hover>Haz click para ejecutar<i>${syntax} start</i>'><text_hover>${syntax} start <player> <#FFF4E4><bold>|</bold> <text>Llama a otro jugador.</hover></click>".toComponent())
+        player.sendMessage("<click:run_command:'${syntax} end'><hover:show_text:'<text_hover>Haz click para ejecutar<i>${syntax} end</i>'><text_hover>${syntax} end <#FFF4E4><bold>|</bold> <text>Finaliza la llamada en la que estás.</hover></click>".toComponent())
+        player.sendMessage("<click:run_command:'${syntax} accept'><hover:show_text:'<text_hover>Haz click para ejecutar <i>${syntax} accept</i>'><text_hover>${syntax} accept <#FFF4E4><bold>|</bold> <text>Acepta una llamada entrante.</hover></click>".toComponent())
+        player.sendMessage("<click:run_command:'${syntax} deny'><hover:show_text:'<text_hover>Haz click para ejecutar <i>${syntax} deny</i>'><text_hover>${syntax} deny <#FFF4E4><bold>|</bold> <text>Rechaza una llamada entrante.</hover></click>".toComponent())
+        player.sendMessage("<click:run_command:'${syntax} toggle'><hover:show_text:'<text_hover>Haz click para ejecutar <i>${syntax} toggle</i>'><text_hover>${syntax} toggle <#FFF4E4><bold>|</bold> <text>Activa o desactiva las llamadas entrantes.</hover></click>".toComponent())
         player.sendMessage("")
         player.sendMessage(Storage.contentFooter.toComponent())
     }

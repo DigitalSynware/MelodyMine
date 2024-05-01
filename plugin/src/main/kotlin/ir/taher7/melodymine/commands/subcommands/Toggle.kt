@@ -20,17 +20,13 @@ class Toggle : SubCommand() {
     override fun handler(player: Player, args: Array<out String>) {
 
         val melodyPlayer = Storage.onlinePlayers[player.uniqueId.toString()] ?: return
-        if (coolDown.containsKey(player.uniqueId) && (System.currentTimeMillis() - coolDown[player.uniqueId]!!) <= 5000) {
-            player.sendMessage("<prefix>You can use this command after <count_color>${((5000 - (System.currentTimeMillis() - coolDown[player.uniqueId]!!)) / 1000)}<text> second.".toComponent())
-            return
-        }
 
         if (melodyPlayer.isToggle) {
             MelodyManager.disableLogger(melodyPlayer.uuid)
-            player.sendMessage("<prefix>Message log has been disabled.".toComponent())
+            player.sendMessage("<prefix>Log de mensajes desactivado.".toComponent())
         } else {
             MelodyManager.enableLogger(melodyPlayer.uuid)
-            player.sendMessage("<prefix>Message log has been enabled.".toComponent())
+            player.sendMessage("<prefix>Log de mensajes activado.".toComponent())
         }
         coolDown[player.uniqueId] = System.currentTimeMillis()
     }

@@ -160,7 +160,7 @@ class SocketListener(private val socket: Socket) {
 
                     else -> {}
                 }
-                if (Storage.forceVoice && !player.hasPermission("melodymine.force")) {
+                if (Storage.forceVoice && !player.hasPermission("voicechat.force")) {
                     Storage.onlinePlayers[melodyPlayer.uuid]?.let { Utils.clearForceVoice(it) }
                 }
             }

@@ -18,7 +18,7 @@ class Reload : SubCommand() {
         Storage.reload()
 
         Adventure.initMiniMessage()
-        player.sendMessage("<prefix>Plugin has been successfully reload.".toComponent())
+        player.sendMessage("<prefix>El plugin ha sido recargado correctamente".toComponent())
         Storage.onlinePlayers.values.forEach { melodyPlayer ->
             if (melodyPlayer.webIsOnline) {
                 MelodyManager.sendSoundSetting(melodyPlayer.socketID!!)

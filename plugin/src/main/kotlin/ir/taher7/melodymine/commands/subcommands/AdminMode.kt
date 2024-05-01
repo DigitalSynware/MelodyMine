@@ -11,8 +11,6 @@ import java.util.*
 
 class AdminMode : SubCommand() {
 
-    private val coolDown = hashMapOf<UUID, Long>()
-
     override var name = "adminmode"
     override var description = Storage.adminmodeDescription
     override var syntax = "/voicechat adminmode"
@@ -21,28 +19,22 @@ class AdminMode : SubCommand() {
     override fun handler(player: Player, args: Array<out String>) {
         val melodyPlayer = Storage.onlinePlayers[player.uniqueId.toString()] ?: return
 
-        if (coolDown.containsKey(player.uniqueId) && (System.currentTimeMillis() - coolDown[player.uniqueId]!!) <= 5000) {
-            player.sendMessage("<prefix>You can use this command after <count_color>${((5000 - (System.currentTimeMillis() - coolDown[player.uniqueId]!!)) / 1000)} <text>second.".toComponent())
-            return
-        }
-
         if (!melodyPlayer.webIsOnline) {
-            player.sendMessage("<prefix>To start Admin mode you need to connect the website.".toComponent())
+            player.sendMessage("<prefix> Para iniciar el Modo Administrador debes conectarte a la web".toComponent())
             return
         }
 
         if (!melodyPlayer.isActiveVoice) {
-            player.sendMessage("<prefix>To start Admin mode you need to click on the start melody in the website.".toComponent())
+            player.sendMessage("<prefix>Para iniciar el Modo Administrador debes hacer click en el botón de iniciar el chat de voz en la web.".toComponent())
             return
         }
 
         if (melodyPlayer.adminMode) {
             MelodyManager.disableAdminMode(melodyPlayer.uuid)
-            player.sendMessage("<prefix>Admin mode has been disabled.".toComponent())
+            player.sendMessage("<prefix>El modo administrador ha sido desactivado.".toComponent())
         } else {
             MelodyManager.enableAdminMode(melodyPlayer.uuid)
-            player.sendMessage("<prefix>Admin mode has been enabled.".toComponent())
+            player.sendMessage("<prefix>El modo administrador ha sido activado.".toComponent())
         }
-        coolDown[player.uniqueId] = System.currentTimeMillis()
     }
 }

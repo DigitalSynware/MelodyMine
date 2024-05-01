@@ -108,7 +108,7 @@ object Utils {
     fun checkPlayerForce(player: MelodyPlayer): Boolean {
         if (player.isActiveVoice) return true
         if (!Storage.forceVoice) return true
-        if (player.player?.hasPermission("melodymine.force") == true) return true
+        if (player.player?.hasPermission("voicechat.force") == true) return true
         if (Storage.disableWorld.contains(player.player?.location?.world?.name)) return true
         return false
     }
@@ -117,7 +117,7 @@ object Utils {
         object : BukkitRunnable() {
             override fun run() {
                 Storage.onlinePlayers.values.forEach { melodyPlayer ->
-                    if (melodyPlayer.player?.hasPermission("melodymine.toggle") == true && melodyPlayer.isToggle) {
+                    if (melodyPlayer.player?.hasPermission("voicechat.toggle") == true && melodyPlayer.isToggle) {
                         melodyPlayer.player?.sendMessage(message.replace("{PLAYER}", player.name).toComponent())
                     }
                 }

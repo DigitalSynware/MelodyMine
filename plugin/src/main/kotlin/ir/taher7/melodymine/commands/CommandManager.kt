@@ -21,7 +21,6 @@ class CommandManager : CommandExecutor {
         Storage.subCommands.add(Unmute())
         Storage.subCommands.add(Control())
         Storage.subCommands.add(Call())
-        Storage.subCommands.add(Status())
         Storage.subCommands.add(Reset())
     }
 

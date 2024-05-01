@@ -14,34 +14,27 @@ class Mute : SubCommand() {
     override var syntax = "/voicechat mute"
     override var permission = "voicechat.mute"
     override fun handler(player: Player, args: Array<out String>) {
-        val coolDown = Storage.muteCoolDown
-        if (coolDown.containsKey(player.uniqueId) && (System.currentTimeMillis() - coolDown[player.uniqueId]!!) <= 5000) {
-            player.sendMessage("<prefix>You can use this command after <count_color>${((5000 - (System.currentTimeMillis() - coolDown[player.uniqueId]!!)) / 1000)}<text> second.".toComponent())
-            return
-        }
-
         if (args.size != 2) {
-            player.sendMessage("<prefix>use: <i>${syntax} <player></i>.".toComponent())
+            player.sendMessage("<prefix>Modo de uso: <i>${syntax} <jugador></i>.".toComponent())
             return
         }
 
         val targetPlayer = Bukkit.getPlayer(args[1])
         if (targetPlayer == null) {
-            player.sendMessage("<prefix>Player does not exist.".toComponent())
+            player.sendMessage("<prefix>El jugador que intentas silenciar no está conectado.".toComponent())
             return
         }
 
         val melodyPlayer = Storage.onlinePlayers[player.uniqueId.toString()] ?: return
         if (melodyPlayer.isMute) {
-            player.sendMessage("<prefix><count_color>${melodyPlayer.name} <text>is already muted.".toComponent())
+            player.sendMessage("<prefix><count_color>${melodyPlayer.name} <text>ya está silenciado.".toComponent())
             return
         }
 
         MelodyManager.mute(targetPlayer.uniqueId.toString())
 
-        targetPlayer.player?.sendMessage("<prefix>You have muted in voice chat.".toComponent())
-        player.sendMessage("<prefix><count_color>${targetPlayer.name} <text>has mute in voice chat.".toComponent())
-        coolDown[player.uniqueId] = System.currentTimeMillis()
+        targetPlayer.player?.sendMessage("<prefix>Has sido silenciado en el chat de voz.".toComponent())
+        player.sendMessage("<prefix><count_color>${targetPlayer.name} <text>ha sido silenciado en el chat de voz.".toComponent())
     }
 
 }
