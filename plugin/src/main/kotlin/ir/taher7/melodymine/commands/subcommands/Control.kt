@@ -9,17 +9,12 @@ import org.bukkit.entity.Player
 import java.util.*
 
 class Control : SubCommand() {
-    private val coolDown = hashMapOf<UUID, Long>()
 
     override var name = "control"
     override var description = Storage.controlDescription
     override var syntax = "/melodymine control"
     override var permission = "melodymine.control"
     override fun handler(player: Player, args: Array<out String>) {
-        if (coolDown.containsKey(player.uniqueId) && (System.currentTimeMillis() - coolDown[player.uniqueId]!!) <= 5000) {
-            player.sendMessage("<prefix>You can use this command after <count_color>${((5000 - (System.currentTimeMillis() - coolDown[player.uniqueId]!!)) / 1000)}<text> second.".toComponent())
-            return
-        }
 
         if (args.size != 2) {
             sendControlHelpMessage(player)
@@ -39,7 +34,6 @@ class Control : SubCommand() {
             } else {
                 player.sendMessage(Storage.muteToggleMessage.toComponent())
             }
-            coolDown[player.uniqueId] = System.currentTimeMillis()
             return
         }
 
@@ -50,7 +44,6 @@ class Control : SubCommand() {
             } else {
                 player.sendMessage(Storage.deafenToggleMessage.toComponent())
             }
-            coolDown[player.uniqueId] = System.currentTimeMillis()
             return
         }
 

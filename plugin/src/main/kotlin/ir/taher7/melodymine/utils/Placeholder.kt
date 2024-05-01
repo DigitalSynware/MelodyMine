@@ -68,8 +68,8 @@ class Placeholder : PlaceholderExpansion() {
             }
 
             "deafen" -> {
-                if (!melodyPlayer.isActiveVoice && !melodyPlayer.isSelfMute) return Storage.placeholderDeafen
-                return Storage.placeholderUnDeafen
+                if (melodyPlayer.isDeafen) return Storage.placeholderUnDeafen
+                return Storage.placeholderDeafen
             }
 
             "control" -> {
